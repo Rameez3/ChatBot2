@@ -1,6 +1,7 @@
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
+import PurpleButton from "./components/PurpleButton";
 
 
 
@@ -17,7 +18,9 @@ function generateRandomUsername() {
 
 function App() {
   return (
-    <h1>{generateRandomUsername()}</h1>
+    <div className="container">
+      <h1 className="title">Riverside Chat</h1>
+    </div>
   );
 }
 
