@@ -26,7 +26,7 @@ function Login() {
     setIsFormValid(false);
   };
 
-  const handleSignupSubmit = () => {
+  const handleLoginSubmit = () => {
     // Validate username and password
     let isUsernameValid = username.length >= 8 && /[a-zA-Z]/.test(username);
     let isPasswordValid = password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password);
@@ -42,9 +42,9 @@ function Login() {
     // Set form validity based on validation results
     setIsFormValid(isUsernameValid && isPasswordValid);
 
-    // Handle signup logic if validation passes
+    // Handle Login logic if validation passes
     if (isFormValid) {
-      // Perform signup actions here
+      // Perform Login actions here
       console.log('Username:', username);
       console.log('Password:', password);
       handleClose();
@@ -54,12 +54,12 @@ function Login() {
   return (
     <>
       <a href="#" variant="primary" onClick={handleShow}>
-        Signup
+        Login
       </a>
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">Signup</Modal.Title>
+          <Modal.Title className="text-center">Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -89,8 +89,8 @@ function Login() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSignupSubmit} disabled={!isFormValid}>
-            Sign Up
+          <Button variant="primary" onClick={handleLoginSubmit} disabled={!isFormValid}>
+            Login
           </Button>
         </Modal.Footer>
       </Modal>
