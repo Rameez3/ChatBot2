@@ -16,6 +16,7 @@ const PurpleButton = (props) => {
     fontSize: "16px",
     transition: "background-color 0.3s ease",
     cursor: "pointer",
+    borderRadius: "10px",
   };
 // The styles that will be applied when the button is hovered on
   const buttonHoverStyles = {
