@@ -1,89 +1,105 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Modal, Button, Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
-const Signup = () => {
-  const [showModal, setShowModal] = useState(false);
+function Signup() {
+  const [show, setShow] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleSignupClick = () => {
-    setShowModal(true);
-  };
-
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    setUsernameError('');
+    setIsFormValid(false); // Reset form validity on username change
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    setPasswordError('');
+    setIsFormValid(false); // Reset form validity on password change
   };
 
   const handleSignupSubmit = () => {
-    // Handle signup logic
-    // You can access the entered username and password here
-    console.log('Username:', username);
-    console.log('Password:', password);
+    // Validate username and password
+    let isUsernameValid = true;
+    let isPasswordValid = true;
 
-    // Close the modal
-    setShowModal(false);
+    if (username.length < 8 || !/[a-zA-Z]/.test(username)) {
+      setUsernameError('Username must be at least 8 characters long and contain at least 1 letter.');
+      isUsernameValid = false;
+    }
+
+    if (password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+      setPasswordError(
+        'Password must be at least 8 characters long and contain at least 1 lowercase letter and 1 uppercase letter.'
+      );
+      isPasswordValid = false;
+    }
+
+    // Set form validity based on validation results
+    setIsFormValid(isUsernameValid && isPasswordValid);
+
+    // Handle signup logic if validation passes
+    if (isUsernameValid && isPasswordValid) {
+      // Perform signup actions here
+      console.log('Username:', username);
+      console.log('Password:', password);
+      handleClose();
+    }
   };
 
   return (
-    <div>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Your Logo</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-            <Nav.Link href="#signup" onClick={handleSignupClick}>
-              Sign Up
-            </Nav.Link>
-            <Nav.Link href="#login">Login</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+    <>
+      <a href="#" variant="primary" onClick={handleShow}>
+        Signup
+      </a>
 
-      <Modal show={showModal} onHide={handleModalClose}>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign Up</Modal.Title>
+          <Modal.Title className="text-center">Signup</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Username:</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter your username"
+                placeholder="Ex. r1932521"
                 value={username}
                 onChange={handleUsernameChange}
               />
+              {usernameError && <Form.Text className="text-danger">{usernameError}</Form.Text>}
             </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Password:</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Enter your password"
                 value={password}
                 onChange={handlePasswordChange}
               />
+              {passwordError && <Form.Text className="text-danger">{passwordError}</Form.Text>}
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSignupSubmit}>
+          <Button variant="primary" onClick={handleSignupSubmit} disabled={!isFormValid}>
             Sign Up
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
-};
+}
 
 export default Signup;

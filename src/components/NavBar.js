@@ -1,6 +1,6 @@
-import Container from 'react-bootstrap/Container';
-import { Navbar, Nav } from 'react-bootstrap';
-import Signup from "./components/Signup";
+import React, { useState } from 'react';
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import Signup from "./Signup";
 
 function NavBar() {
   return (
@@ -10,7 +10,7 @@ function NavBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <Nav.Link href="#signup" onClick="{<Signup/>}">Sign Up</Nav.Link>
+            <Nav.Link>{<Signup />}</Nav.Link>
             <Nav.Link href="#login">Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>

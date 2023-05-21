@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import PurpleButton from "./components/PurpleButton";
 import NavBar from "./components/NavBar";
+import Container from 'react-bootstrap/Container';
+
 
 function generateRandomUsername() {
   let adjectives = ["Diligent", "Cheerful", "Sunny", "Supreme", "Magnificent"];
@@ -17,11 +19,12 @@ function generateRandomUsername() {
 
 function App() {
   return (
-    <div className="container-fluid">
+    <Container fluid>
       <NavBar />
       <h1 className="title">Riverside Chat</h1>
-    </div>
+    </Container>
   );
 }
+
 
 export default App;
