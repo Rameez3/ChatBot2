@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-function Signup() {
+function Login() {
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -98,4 +98,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Login;
