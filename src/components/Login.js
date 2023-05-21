@@ -4,98 +4,88 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 function Login() {
-  const [show, setShow] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
+    
+    const [show, setShow] = useState(false);
+    const [usernameValid, setUsernameValid] = useState(false);
+    const [passwordValid, setPasswordValid] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    setUsernameError('');
-    setIsFormValid(false);
-  };
+    const handleUsernameChange = (e) => {
+        console.log("Received Username: " + e.target.value);
+    };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    setPasswordError('');
-    setIsFormValid(false);
-  };
+    const handlePasswordChange = (e) => {
+        console.log("Received Password: " + e.target.value);
+    };
 
-  const handleLoginSubmit = () => {
-    // Validate username and password
-    let isUsernameValid = username.length >= 8 && /[a-zA-Z]/.test(username);
-    let isPasswordValid = password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password);
-
-    // Set error messages
-    if (!isUsernameValid) {
-      setUsernameError('Username must be at least 8 characters long and contain at least one letter.');
-    }
-    if (!isPasswordValid) {
-      setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter and one uppercase letter.');
+    const handleSubmit = () => {
+        console.log("Submitted!");
     }
 
-    // Set form validity based on validation results
-    setIsFormValid(isUsernameValid && isPasswordValid);
+    const isFormValid = true;
 
-    // Handle Login logic if validation passes
-    if (isFormValid) {
-      // Perform Login actions here
-      console.log('Username:', username);
-      console.log('Password:', password);
-      handleClose();
-    }
-  };
+    return (
+        <>
+        <a href="#" variant="primary" onClick={handleShow}>
+          Login
+        </a>
+  
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          size="lg"
+          centered
+        >
+          <Modal.Header closeButton style={{ display: 'flex', justifyContent: 'center' }}>
+            <Modal.Title>Login</Modal.Title>
+          </Modal.Header>
+  
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>ACC ID: </Form.Label>
+                <Form.Control
+                  onChange={handleUsernameChange}
+                  type="text"
+                  placeholder="Ex. r1932521"
+                  id="usernameField"
+                  aria-required = "true"
+                  autoFocus
+                />
+                <br />
+                <p id="username_requirements"></p>
+              </Form.Group>
+  
+              <Form.Group className="mb-3">
+                <Form.Label>Password: </Form.Label>
+                <Form.Control
+                  onChange={handlePasswordChange}
+                  type="password"
+                  placeholder="Password"
+                  aria-required = "true"
+                  id="passwordField"
+                />
+                <br />
+                <p id="password_requirements"></p>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" disabled={!isFormValid} onClick={handleSubmit}>
+              Login
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    )
+};
 
-  return (
-    <>
-      <a href="#" variant="primary" onClick={handleShow}>
-        Login
-      </a>
-
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title className="text-center">Login</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Username:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ex. r1932521"
-                value={username}
-                onChange={handleUsernameChange}
-              />
-              {usernameError && <Form.Text className="text-danger">{usernameError}</Form.Text>}
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Password:</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              {passwordError && <Form.Text className="text-danger">{passwordError}</Form.Text>}
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleLoginSubmit} disabled={!isFormValid}>
-            Login
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
 
 export default Login;

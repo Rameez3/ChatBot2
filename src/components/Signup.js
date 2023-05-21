@@ -5,51 +5,80 @@ import Modal from 'react-bootstrap/Modal';
 
 function Signup() {
   const [show, setShow] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [usernameValid, setUsernameValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [passwordValid2, setPasswordValid2] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    setUsernameError('');
-    setIsFormValid(false);
+    let errorMsg = document.getElementById('username_requirements');
+    let usernameField = document.getElementById('usernameField');
+    let username = e.target.value;
+
+    if (/^[a-zA-Z].{7}$/.test(username)) {
+      setUsernameValid(true);
+      errorMsg.textContent = "";
+      usernameField.style.backgroundColor = 'transparent';
+      usernameField.style.borderColor = 'green';
+
+    } else {
+      setUsernameValid(false);
+      errorMsg.style.color = 'red';
+      usernameField.style.backgroundColor = '#fbe9e8';
+      usernameField.style.borderColor = 'red';
+      errorMsg.textContent = "Username must contain at least 1 letter at the beginning and must be 8 characters long.";
+    }
   };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    setPasswordError('');
-    setIsFormValid(false);
-  };
+    let errorMsg = document.getElementById('password_requirements');
+    let passwordField = document.getElementById('passwordField');
+    let password = e.target.value;
 
-  const handleSignupSubmit = () => {
-    // Validate username and password
-    let isUsernameValid = username.length >= 8 && /[a-zA-Z]/.test(username);
-    let isPasswordValid = password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password);
-
-    // Set error messages
-    if (!isUsernameValid) {
-      setUsernameError('Username must be at least 8 characters long and contain at least one letter.');
-    }
-    if (!isPasswordValid) {
-      setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter and one uppercase letter.');
-    }
-
-    // Set form validity based on validation results
-    setIsFormValid(isUsernameValid && isPasswordValid);
-
-    // Handle signup logic if validation passes
-    if (isFormValid) {
-      // Perform signup actions here
-      console.log('Username:', username);
-      console.log('Password:', password);
-      handleClose();
+    if (/^(?=.*[A-Z])(?=.*[a-z]).{8,}$/.test(password)) {
+      setPasswordValid(true);
+      errorMsg.textContent = "";
+      passwordField.style.backgroundColor = 'transparent';
+      passwordField.style.borderColor = 'green';
+    } else {
+      setPasswordValid(false);
+      errorMsg.style.color = 'red';
+      passwordField.style.backgroundColor = '#fbe9e8';
+      passwordField.style.borderColor = 'red';
+      errorMsg.textContent = 'Password must be at least 8 characters long and must contain at least one capital letter and one symbol.';
     }
   };
+
+  const handleConfirmPasswordChange = (e) => {
+    let errorMsg = document.getElementById('confirm_password');
+    let confirmPasswordField = document.getElementById('confirmPasswordField');
+    let password = document.getElementById('passwordField').value;
+    let confirmPassword = e.target.value;
+
+    if (password === confirmPassword) {
+      setPasswordValid2(true);
+      confirmPasswordField.style.backgroundColor = 'transparent';
+      confirmPasswordField.style.borderColor = 'green';
+      errorMsg.textContent = "";
+    } else {
+      setPasswordValid2(false);
+      errorMsg.style.color = 'red';
+      confirmPasswordField.style.backgroundColor = '#fbe9e8';
+      confirmPasswordField.style.borderColor = 'red';
+      errorMsg.textContent = 'Passwords do not match.';
+    }
+  };
+
+  const handleSubmit = () => {
+    handleClose();
+    setTimeout(() => {
+      alert("Successfully Signed up!");
+    }, 100); // Add a slight delay before showing the alert
+  };
+
+  const isFormValid = usernameValid && passwordValid && passwordValid2;
 
   return (
     <>
@@ -57,31 +86,59 @@ function Signup() {
         Signup
       </a>
 
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title className="text-center">Signup</Modal.Title>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton style={{ display: 'flex', justifyContent: 'center' }}>
+          <Modal.Title>Signup</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Username:</Form.Label>
+            <Form.Group className="mb-3">
+              <Form.Label>ACC ID: </Form.Label>
               <Form.Control
+                onChange={handleUsernameChange}
                 type="text"
                 placeholder="Ex. r1932521"
-                value={username}
-                onChange={handleUsernameChange}
+                id="usernameField"
+                aria-required = "true"
+                autoFocus
               />
-              {usernameError && <Form.Text className="text-danger">{usernameError}</Form.Text>}
+              <br />
+              <p id="username_requirements"></p>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Password:</Form.Label>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Password: </Form.Label>
               <Form.Control
-                type="password"
-                placeholder="Enter your password"
-                value={password}
                 onChange={handlePasswordChange}
+                type="password"
+                placeholder="Password"
+                aria-required = "true"
+                id="passwordField"
               />
-              {passwordError && <Form.Text className="text-danger">{passwordError}</Form.Text>}
+              <br />
+              <p id="password_requirements"></p>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Confirm Password: </Form.Label>
+              <Form.Control
+                onChange={handleConfirmPasswordChange}
+                disabled={!passwordValid}
+                type="password"
+                id="confirmPasswordField"
+                aria-required = "true"
+                placeholder="Enter password again"
+              />
+              <br />
+              <p id="confirm_password"></p>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -89,8 +146,8 @@ function Signup() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSignupSubmit} disabled={!isFormValid}>
-            Sign Up
+          <Button variant="primary" disabled={!isFormValid} onClick={handleSubmit}>
+            Signup
           </Button>
         </Modal.Footer>
       </Modal>

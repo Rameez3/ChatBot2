@@ -14,8 +14,11 @@ function NavBar() {
         <Navbar.Collapse className="justify-content-end">
           <Nav>
             <Nav.Item>
-              <Nav.Link>{<Signup />}</Nav.Link>
+              <Nav.Link>
+                {<Signup />}
+              </Nav.Link>
             </Nav.Item>
+            
             <Nav.Item>
               <Nav.Link>
                 {<Login />}
