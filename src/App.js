@@ -19,7 +19,7 @@ function App() {
   return (
     <Container fluid>
       <NavBar />
-      <h1 className="title">Riverside Chat</h1>
+      <h1 className="title"><marquee>Riverside Chat</marquee> </h1>
       <IndexButtons />
     </Container>
   );
