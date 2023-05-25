@@ -1,13 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json()); // Add this line to parse request bodies as JSON
 const port = 3000;
 
-const uri = 'mongodb+srv://rk03:cvbnm114@useraccounts.9lvzpue.mongodb.net/';
+const uri = process.env.URI;
 const dbName = 'SensitiveUserData';
 const collectionName = 'UserData';
 
