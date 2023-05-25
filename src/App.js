@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from "./components/NavBar";
 import Container from 'react-bootstrap/Container';
 import IndexButtons from "./components/IndexButtons";
+import AxiosTest from "./components/axiostest";
 
 function generateRandomUsername() {
   let adjectives = ["Diligent", "Cheerful", "Sunny", "Supreme", "Magnificent"];
@@ -21,6 +22,7 @@ function App() {
       <NavBar />
       <h1 className="title"><marquee>Riverside Chat</marquee> </h1>
       <IndexButtons />
+      <AxiosTest />
     </Container>
   );
 }

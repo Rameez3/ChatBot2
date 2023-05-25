@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 
 function Signup() {
   const [show, setShow] = useState(false);
@@ -73,11 +74,33 @@ function Signup() {
 
   const handleSubmit = () => {
     handleClose();
-    setTimeout(() => {
-      alert("Successfully Signed up!");
-    }, 100); // Add a slight delay before showing the alert
+  
+    // Get the username and password values from the form fields
+    const username = document.getElementById('usernameField').value;
+    const password = document.getElementById('passwordField').value;
+  
+    // Create an object with the username and password
+    const userData = {
+      username: username,
+      password: password
+    };
+  
+    // Send the userData object to the server using Axios
+    axios.post('http://localhost:3000/api/signup', userData)
+      .then(response => {
+        // Handle the response from the server
+        if (response.status === 200) {
+          alert('Successfully Signed up!');
+        } else {
+          alert('Signup failed!');
+        }
+      })
+      .catch(error => {
+        console.error('Error submitting data:', error);
+        alert('Signup failed!');
+      });
   };
-
+  
   const isFormValid = usernameValid && passwordValid && passwordValid2;
 
   return (
