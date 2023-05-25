@@ -42,6 +42,13 @@ app.post('/api/signup', async (req, res) => {
     const collection = client.db(dbName).collection(collectionName);
     const userData = req.body; // Retrieve the userData object from the request body
 
+    // Check if the username already exists in the database
+    const existingUser = await collection.findOne({ username: userData.username });
+    if (existingUser) {
+      res.status(400).json({  error: 'Username already exists' });
+      return;
+    }
+
     // Insert the userData into the collection
     await collection.insertOne(userData);
 
@@ -53,6 +60,35 @@ app.post('/api/signup', async (req, res) => {
     client.close();
   }
 });
+
+app.post('/api/login', async (req, res) => {
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+
+    const collection = client.db(dbName).collection(collectionName);
+    const { username, password } = req.body;
+
+    // Check if the username and password match a document in the collection
+    const user = await collection.findOne({ username, password });
+
+    if (user) {
+      // Username and password match, login successful
+      res.sendStatus(200);
+    } else {
+      // Username and password do not match, login failed
+      res.sendStatus(401);
+    }
+  } catch (error) {
+    console.error('Failed to verify login:', error);
+    res.sendStatus(500); // Send an error status back to the client
+  } finally {
+    client.close();
+  }
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
