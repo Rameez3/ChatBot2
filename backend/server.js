@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
-require('dotenv').config();
+
+require('dotenv').config(); // To acess the .env file
 
 const app = express();
 app.use(cors());
@@ -9,8 +10,8 @@ app.use(express.json()); // Add this line to parse request bodies as JSON
 const port = 3000;
 
 const uri = process.env.URI;
-const dbName = 'SensitiveUserData';
-const collectionName = 'UserData';
+const dbName = process.env.dbName;
+const collectionName = process.env.collectionName;
 
 app.get('/api/data', async (req, res) => {
   const client = new MongoClient(uri);
@@ -21,7 +22,7 @@ app.get('/api/data', async (req, res) => {
     const collection = client.db(dbName).collection(collectionName);
     const documents = await collection.find().toArray();
 
-    console.log(documents); // Print the retrieved data in the server console
+    // console.log(documents); // Print the retrieved data in the server console
 
     res.json(documents); // Send the data as a JSON response to the client
   } catch (error) {
