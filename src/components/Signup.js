@@ -74,23 +74,23 @@ function Signup() {
 
   const handleSubmit = () => {
     handleClose();
-  
+
     // Get the username and password values from the form fields
     const username = document.getElementById('usernameField').value;
     const password = document.getElementById('passwordField').value;
-  
+
     // Create an object with the username and password
     const userData = {
       username: username,
       password: password
     };
-  
-    // Send the userData object to the server using Axios
+
     axios.post('http://localhost:3000/api/signup', userData)
       .then(response => {
-        // Handle the response from the server
         if (response.status === 200) {
-          alert('Successfully Signed up!');
+          alert('Successfully signed up!');
+        } else if (response.status === 400 && response.data.error === 'Bad Request') {
+          alert('Username already exists');
         } else {
           alert('Signup failed!');
         }
@@ -99,8 +99,11 @@ function Signup() {
         console.error('Error submitting data:', error);
         alert('Signup failed!');
       });
+
+
+
   };
-  
+
   const isFormValid = usernameValid && passwordValid && passwordValid2;
 
   return (
@@ -130,7 +133,7 @@ function Signup() {
                 type="text"
                 placeholder="Ex. r1932521"
                 id="usernameField"
-                aria-required = "true"
+                aria-required="true"
                 autoFocus
               />
               <br />
@@ -143,7 +146,7 @@ function Signup() {
                 onChange={handlePasswordChange}
                 type="password"
                 placeholder="Password"
-                aria-required = "true"
+                aria-required="true"
                 id="passwordField"
               />
               <br />
@@ -157,7 +160,7 @@ function Signup() {
                 disabled={!passwordValid}
                 type="password"
                 id="confirmPasswordField"
-                aria-required = "true"
+                aria-required="true"
                 placeholder="Enter password again"
               />
               <br />
