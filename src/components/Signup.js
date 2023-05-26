@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Login from "./Login";
 import axios from 'axios';
 
 function Signup() {
@@ -99,12 +100,20 @@ function Signup() {
         console.error('Error submitting data:', error);
         alert('Signup failed!');
       });
-
-
-
   };
 
+  const openLogin = () => {
+    handleClose(); // Close the login modal
+    Login.openModal(); // Open the signup modal
+  };
+
+  function openModal() {
+    handleShow();
+  }
+
   const isFormValid = usernameValid && passwordValid && passwordValid2;
+
+  Signup.openModal = openModal;
 
   return (
     <>
@@ -166,6 +175,9 @@ function Signup() {
               <br />
               <p id="confirm_password"></p>
             </Form.Group>
+            <Form.Group>
+              <h6 className="text-center">Already have an account? <a href='#' onClick={openLogin} className="text-decoration-none">Login</a></h6>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -180,5 +192,6 @@ function Signup() {
     </>
   );
 }
+
 
 export default Signup;
