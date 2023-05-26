@@ -18,7 +18,7 @@ useEffect(() => {
       console.error('Error fetching data:', error);
     }
   };
-    return(
+    return (
             <div>
               <h1>User Data:</h1>
               <ul>
@@ -27,7 +27,7 @@ useEffect(() => {
                 ))}
               </ul>
             </div>
-          );
+      );
   };
 
   export default AxiosTest;
