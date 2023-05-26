@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Signup from "./Signup";
 import axios from 'axios';
 
 function Login() {
@@ -10,8 +11,10 @@ function Login() {
   const [usernameValid, setUsernameValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseLogin = () => setShow(false);
+  const handleShowLogin = () => setShow(true);
+
+  const isFormValid = true;
 
   const handleUsernameChange = (e) => {
     let errorMsg = document.getElementById('username_requirements');
@@ -53,7 +56,6 @@ function Login() {
   };
 
   const handleSubmit = () => {
-    handleClose();
 
     // Get the username and password values from the form fields
     const username = document.getElementById('usernameField').value;
@@ -82,18 +84,27 @@ function Login() {
       });
   };
 
+  const openSignup = () => {
+    handleCloseLogin(); // Close the login modal
+    Signup.openModal(); // Open the signup modal
+  };
 
-  const isFormValid = true;
+  function openModal() {
+    handleShowLogin();
+  }
+
+  Login.openModal = openModal;
+
 
   return (
     <>
-      <a href="#" variant="primary" onClick={handleShow}>
+      <a href="#" variant="primary" onClick={handleShowLogin}>
         Login
       </a>
 
       <Modal
         show={show}
-        onHide={handleClose}
+        onHide={handleCloseLogin}
         backdrop="static"
         keyboard={false}
         size="lg"
@@ -131,10 +142,13 @@ function Login() {
               <br />
               <p id="password_requirements"></p>
             </Form.Group>
+            <Form.Group>
+              <h6 className="text-center">Don't have an account? <a href='#' onClick={openSignup} className="text-decoration-none">Signup</a></h6>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleCloseLogin}>
             Close
           </Button>
           <Button variant="primary" disabled={!isFormValid} onClick={handleSubmit}>
