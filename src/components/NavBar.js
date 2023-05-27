@@ -4,22 +4,24 @@ import Signup from "./Signup";
 import Login from "./Login";
 import myLogo from "../assets/bat.jpg";
 
-//Error is produced here because the Signup component is an "a" and the Nav.Link is also an "a" so an a tag is nested inside of another a tag
-
 function NavBar() {
   return (
     <Navbar>
       <Container>
         <Navbar.Brand href="#home" src={myLogo} width="500" height="500" className="d-inline-block align-top" alt="RiverBat Logo"></Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-between">
+          <Nav className="w-100">
+            <Navbar.Text className="text-center w-100 h1">
+              Riverside Chat App
+            </Navbar.Text>
+          </Nav>
           <Nav>
             <Nav.Item>
               <Nav.Link>
                 {<Signup />}
               </Nav.Link>
             </Nav.Item>
-
             <Nav.Item>
               <Nav.Link>
                 {<Login />}
