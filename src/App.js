@@ -1,6 +1,8 @@
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.css';
 import Home from "./pages/Home";
+import ChatBot from "./pages/ChatBot";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function generateRandomUsername() {
   let adjectives = ["Diligent", "Cheerful", "Sunny", "Supreme", "Magnificent"];
@@ -15,7 +17,12 @@ function generateRandomUsername() {
 
 function App() {
   return (
-    <Home />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<ChatBot />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
