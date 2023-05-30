@@ -1,19 +1,20 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import IndexButtons from "../components/IndexButtons";
-import NavBar from "../components/NavBar";
-import AxiosTest from "../components/axiostest";
-import HomeBody from "../components/HomeBody";
+import IndexButtons from "../components/HomeComponents/IndexButtons";
+import NavBar from "../components/HomeComponents/NavBar";
+import AxiosTest from "../components/HomeComponents/axiostest";
+import HomeBody from "../components/HomeComponents/HomeBody";
+import Footer from "../components/HomeComponents/Footer";
 
 function Home() {
   return (
     <>
       <Container fluid className="p-0">
         <NavBar />
-        <h1 className="title"></h1>
         <IndexButtons />
-        <AxiosTest />
+        {/* <AxiosTest /> */}
         <HomeBody />
+        <Footer />
       </Container>
     </>
   );

@@ -2,16 +2,16 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import PurpleButton from './PurpleButton';
+import PurpleButton from './PurpleButton'
 
-import ChatBotIcon from '../assets/chatbotIcon.jpg';
-import FriendIcon from '../assets/friendicon.jpg';
-import ProfessionalIcon from '../assets/professionalicon.jpg';
+import ChatBotIcon from '../../assets/chatbotIcon.jpg'
+import FriendIcon from '../../assets/friendicon.jpg';
+import ProfessionalIcon from '../../assets/professionalicon.jpg';
 
 function HomeBody() {
   return (
     <Container>
-      <Row className="">
+      <Row className="mt-5">
         <Col className="bg-white rounded d-flex justify-content-center mb-4">
           <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src={ChatBotIcon} />

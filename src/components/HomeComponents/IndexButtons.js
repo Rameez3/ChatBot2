@@ -1,6 +1,6 @@
 import Stack from 'react-bootstrap/Stack';
 import PurpleButton from "./PurpleButton";
-import backgroundImage from '../assets/background.jpg';
+import backgroundImage from "../../assets/background.jpg";
 
 function IndexButtons() {
   const bodyDivStyle = {

@@ -2,13 +2,13 @@ import React from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import Signup from "./Signup";
 import Login from "./Login";
-import myLogo from "../assets/bat.jpg";
+import Bat from "../../assets/batlogo.jpg";
 
 function NavBar() {
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand href="#home" src={myLogo} width="500" height="500" className="d-inline-block align-top" alt="RiverBat Logo"></Navbar.Brand>
+        <Navbar.Brand href="#"><img src={Bat} width="100" height="100" alt="Bat Logo"/></Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-between">
           <Nav className="w-100">
@@ -18,7 +18,7 @@ function NavBar() {
           </Nav>
           <Nav>
             <Nav.Item>
-              <Nav.Link>
+              <Nav.Link href="#" style={{textDecoration: 'none'}} >
                 {<Signup />}
               </Nav.Link>
             </Nav.Item>
