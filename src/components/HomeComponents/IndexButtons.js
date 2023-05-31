@@ -23,7 +23,7 @@ function IndexButtons() {
   return (
     <div style={bodyDivStyle}>
       <Stack direction="horizontal" gap={3} style={buttonContainerStyle}>
-        <PurpleButton link="#" title="Talk with RiverBot" />
+        <PurpleButton link="/chat" title="Talk with RiverBot" />
         <PurpleButton link="#" title="Talk with a Friend" />
         <PurpleButton link="#" title="Find Local, Professional Help" />
       </Stack>

@@ -20,7 +20,7 @@ function HomeBody() {
               <Card.Text>
               A student-centered mental health chatbot designed to emulate Rogerian and person-centered therapy. It offers empathetic listening, encourages self-reflection, and promotes personal growth. With 24/7 availability and strict confidentiality, RiverBot provides a safe space for students to express themselves and seek support without receiving direct advice.
               </Card.Text>
-              <PurpleButton link="#" title="Try RiverBot" />
+              <PurpleButton link="/chat" title="Try RiverBot" />
             </Card.Body>
           </Card>
         </Col>
