@@ -98,7 +98,7 @@ function Login() {
 
   return (
     <>
-      <a href="#" variant="primary" onClick={handleShowLogin}>
+      <a href="#" variant="primary" onClick={handleShowLogin} style={{textDecoration: 'none'}}>
         Login
       </a>
 

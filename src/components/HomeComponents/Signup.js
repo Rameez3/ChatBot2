@@ -117,7 +117,7 @@ function Signup() {
 
   return (
     <>
-      <a href="#" variant="primary" onClick={handleShow}>
+      <a href="#" variant="primary" onClick={handleShow} style={{textDecoration: 'none'}}>
         Signup
       </a>
 
