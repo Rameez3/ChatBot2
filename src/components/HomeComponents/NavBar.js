@@ -8,7 +8,7 @@ function NavBar() {
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand href="#"><img src={Bat} width="100" height="100" alt="Bat Logo"/></Navbar.Brand>
+        <Navbar.Brand href="/"><img src={Bat} width="100" height="100" alt="Bat Logo"/></Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-between">
           <Nav className="w-100">
