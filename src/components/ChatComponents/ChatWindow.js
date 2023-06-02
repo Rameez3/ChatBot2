@@ -26,7 +26,7 @@ const chatWindowStyles = {
     padding: '10px',
     marginBottom: '10px',
     borderRadius: '8px',
-    maxWidth: '80%',
+    maxWidth: '100%',
   },
   userMessage: {
     background: '#2196f3',
@@ -45,7 +45,7 @@ const chatWindowStyles = {
   },
   input: {
     marginRight: '10px',
-    flex: '1',
+    flex: '2',
   },
 };
 
@@ -76,35 +76,35 @@ function ChatWindow() {
   };
 
   return (
-    <Container style={chatWindowStyles.container}>
-      <div style={chatWindowStyles.messagesContainer} className="scrollbar">
-        <div className="scrollbar-inner">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              style={{
-                ...chatWindowStyles.message,
-                ...(message.isUser ? chatWindowStyles.userMessage : chatWindowStyles.botMessage),
-              }}
-            >
-              {message.text}
-            </div>
-          ))}
+      <Container style={chatWindowStyles.container}>
+        <div style={chatWindowStyles.messagesContainer} className="scrollbar">
+          <div className="scrollbar-inner">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                style={{
+                  ...chatWindowStyles.message,
+                  ...(message.isUser ? chatWindowStyles.userMessage : chatWindowStyles.botMessage),
+                }}
+              >
+                {message.text}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <Form style={chatWindowStyles.inputContainer} onSubmit={(e) => e.preventDefault()}>
-        <Form.Control
-          type="text"
-          placeholder="Type your message..."
-          style={chatWindowStyles.input}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <Button variant="primary" onClick={sendMessage}>
-          Send
-        </Button>
-      </Form>
-    </Container>
+        <Form style={chatWindowStyles.inputContainer} onSubmit={(e) => e.preventDefault()}>
+          <Form.Control
+            type="text"
+            placeholder="Type your message..."
+            style={chatWindowStyles.input}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <Button variant="primary" onClick={sendMessage}>
+            Send
+          </Button>
+        </Form>
+      </Container>
   );
 }
 
