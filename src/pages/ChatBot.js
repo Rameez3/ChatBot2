@@ -3,10 +3,12 @@ import Container from "react-bootstrap/Container";
 import NavBar from "../components/HomeComponents/NavBar";
 import PurpleButton from "../components/HomeComponents/PurpleButton";
 import ChatWindow from "../components/ChatComponents/ChatWindow";
+import BotResponse from "../components/ChatComponents/BotResponse";
 
 function ChatBot() {
     return (
         <Container fluid className="p-0">
+            <BotResponse />
             <NavBar />
             <ChatWindow />
 
