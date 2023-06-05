@@ -11,8 +11,6 @@ const uri = process.env.URI;
 const dbName = process.env.dbName;
 const collectionName = process.env.collectionName;
 
-console.log("URI:", uri, "dbName:", dbName, "collectionName:", collectionName);
-
 const client = new MongoClient(uri);
 
 app.get('/api/data', async (req, res) => {
