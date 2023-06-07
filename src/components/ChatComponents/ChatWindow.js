@@ -1,110 +1,82 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { useRef, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 
-const chatWindowStyles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '400px',
-    width: '80%',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  },
-  messagesContainer: {
-    flex: '1',
-    width: '100%',
-    marginBottom: '10px',
-    overflowY: 'auto',
-    paddingRight: '10px', // Adjust for the scrollbar
-  },
-  message: {
-    padding: '10px',
-    marginBottom: '10px',
-    borderRadius: '8px',
-    maxWidth: '100%',
-  },
-  userMessage: {
-    background: '#2196f3',
-    color: '#fff',
-    alignSelf: 'flex-start',
-  },
-  botMessage: {
-    background: '#f8f9fa',
-    color: '#000',
-    alignSelf: 'flex-end',
-  },
-  inputContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: '10px',
-  },
-  input: {
-    marginRight: '10px',
-    flex: '2',
-  },
-};
+import ImageButton from "../../assets/send.png";
+import "./chatwindow.css"
 
 function ChatWindow() {
-  const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const textareaRef = useRef(null);
+  const [message, setMessage] = useState(""); // The message that the user will send to the bot.
+  
+  // Function that will disable the button if the message is empty and enable it if the message is not empty.
+  const handleButtonStatus = (buttonStatus) => {
+    let button = document.getElementById("send-button");
+    buttonStatus ? button.disabled = true : button.disabled = false;
+  }
 
-  const sendMessage = () => {
-    if (inputValue.trim() !== '') {
-      const newUserMessage = {
-        id: new Date().getTime(),
-        text: inputValue,
-        isUser: true,
-      };
-      setMessages([...messages, newUserMessage]);
-      setInputValue('');
+  // The function that will change the height of the textarea as the user enters more of their message.
+  // Also keeps track of the message and disables the send button if the message is empty.
+  const handleTextareaChange = () => {
+    const textarea = textareaRef.current;
+    // Using the react state hook to keep track of the user's message.
+    setMessage(textarea.value);
 
-      // Simulate bot response after 1 second
-      setTimeout(() => {
-        const newBotMessage = {
-          id: new Date().getTime(),
-          text: `Bot's reply to "${inputValue}"`,
-          isUser: false,
-        };
-        setMessages((prevMessages) => [...prevMessages, newBotMessage]);
-      }, 1000);
+    // Changing the textarea height based on the user's size of their message.
+    textarea.style.height = "auto"; // Reset the height to auto
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to match the content
+
+    if (textarea.value === "") {
+      //If the message is empty, disable the send button.
+      handleButtonStatus(true);
+    } else {
+      // If the message is not empty, enable the send button.
+      handleButtonStatus(false);
     }
   };
 
+  const handleSendButton = () => {
+    // Clear the textarea and reset the height.
+    textareaRef.current.value = "";
+
+    // Append the blue chat bubbble onto the conversation div.
+    let conversation = document.getElementById("conversation");
+    let userMessage = document.createElement("p");
+
+    userMessage.className = "user-message";
+    userMessage.textContent = message;
+    conversation.appendChild(userMessage);
+
+    // Simulate the bot's response to the user's message
+    let botMessage = document.createElement("p");
+
+    botMessage.className = "bot-message";
+    botMessage.textContent = "This is the bot's response!";
+    conversation.appendChild(botMessage);
+
+
+  }
+
   return (
-      <Container style={chatWindowStyles.container}>
-        <div style={chatWindowStyles.messagesContainer} className="scrollbar">
-          <div className="scrollbar-inner">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                style={{
-                  ...chatWindowStyles.message,
-                  ...(message.isUser ? chatWindowStyles.userMessage : chatWindowStyles.botMessage),
-                }}
-              >
-                {message.text}
-              </div>
-            ))}
-          </div>
-        </div>
-        <Form style={chatWindowStyles.inputContainer} onSubmit={(e) => e.preventDefault()}>
-          <Form.Control
-            type="text"
-            placeholder="Type your message..."
-            style={chatWindowStyles.input}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <Button variant="primary" onClick={sendMessage}>
-            Send
-          </Button>
-        </Form>
+    <div className="chat-window">
+      <h1>Riverbot</h1>
+      <div className="conversation" id="conversation">
+        <p className="user-message">This is the user's message!</p>
+      </div>
+
+      <Container className="send-area">
+        <textarea
+          ref={textareaRef}
+          placeholder="Type your message..."
+          className="input-box"
+          cols="83"
+          onChange={handleTextareaChange}
+        ></textarea>
+        <Button variant="primary" size="lg" id="send-button">
+          <img src={ImageButton} alt="Send" height="25px" onClick={handleSendButton}/>
+        </Button>
       </Container>
+    </div>
   );
 }
 
