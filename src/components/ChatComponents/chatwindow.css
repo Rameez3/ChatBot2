@@ -1,0 +1,65 @@
+/* MAIN CHAT WINDOW STYLES */
+
+.chat-window {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  /* MESSAGE AREA STYLES */
+  
+  .send-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  /* INPUT BOX STYLES */
+  .input-box {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    max-height: 200px;
+    height: 48px;
+    resize: none;
+  }
+  
+  textarea:focus {
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* CONVERSATION MESSAGE STYLES */
+  
+  .user-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    background-color: #007aff;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    width: 30%;
+    float: right;
+  }
+  
+  .bot-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    background-color: #ccc;
+    color: black;
+    border-radius: 10px;
+    padding: 10px 15px;
+    width: 30%;
+    float: left;
+  }
+  
