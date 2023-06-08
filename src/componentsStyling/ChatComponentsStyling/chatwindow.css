@@ -8,6 +8,8 @@
     width: 60%;
     margin: 0 auto;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
   }
   
   /* MESSAGE AREA STYLES */
