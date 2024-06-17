@@ -13,7 +13,8 @@ function ChatWindow() {
 
   // Function that will disable the button if the message is empty and enable it if the message is not empty.
   const handleButtonStatus = (buttonStatus) => {
-    let button = document.  getElementById("send-button");
+    let hello = "Hello";
+    let button = document.getElementById("send-button");
     buttonStatus ? (button.disabled = true) : (button.disabled = false);
   };
 
